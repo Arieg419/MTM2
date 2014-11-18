@@ -49,8 +49,8 @@ Message messageImageCreate( int senderID, const unsigned char* const* image,
 	newImageMessage->senderID = senderID;
 	copiedImage->height = image->height;
 	copiedImage->width = width->width;
-	newImageMessage->content = copiedImage;
-	newImageMessage->MessageType = MessageType[1];
+	newImageMessage->content.image = copiedImage;
+	newImageMessage->type = MessageType[1];
 	
 	return newImageMessage;
 }

@@ -16,8 +16,8 @@ Message messageTextCreate (int senderID, const char* text) {
 		textCopy[i] = "\0";
 	}
 	newMessage->senderID = senderID;
-	newMessage->Content = textCopy;
-	newMessage->MessageType = MessageType[0];
-	
+	newMessage->Content.text = textCopy;
+	newMessage->type = MessageType[0];
+
 	return newMessage;
 }
