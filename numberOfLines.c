@@ -10,7 +10,7 @@ int messageNumberOfLines(const Message message) {
 	}
 	int i = 0;
 	int lineCounter = 0;
-	while(message->content.text) {
+	while(message->content.text[i]) {
 		if(message->content.text[i] == '\n') {
 			lineCounter++;
 		}
