@@ -1,12 +1,8 @@
 #include "message.h"
-
-bool imageCheckisTrue (const unsigned char* const* image) {
-	if (image == NULL) {
-		return false;
-	} else {
-		return true;
-	}
-}
+#include <stdlib.h>
+#include <stdbool.h>
+#include <string.h>
+#include <stdio.h>
 
 bool dimensionCheckIsTrue (unsigned height, unsigned width) {
 	if (height > 0 && width > 0) {
@@ -27,30 +23,18 @@ void imageCopy (char **data, char **copiedImage, unsigned height, unsigned width
 
 Message messageImageCreate( int senderID, const unsigned char* const* image,
 		unsigned width, unsigned height){
-	Message newImageMessage = (Message) malloc(sizeof(Message));
-	if (newImageMessage == NULL) return NULL;
-	if (dimensionCheckIsTrue(image->height, image->width)) {
-		if (imageCheckisTrue(image)) {
-			image copiedImage = (image)malloc(sizeof(image));
-			if (copiedImage == NULL) {
-				return NULL;
-			} else {
-				imageCopy(image->data, copiedImage->data, image->height, image->width);
-			}
-			// copiedImage = image;
-			// newImageMessage->image = image;
-		} else {
-			return NULL;
-		}
-	} else  {
+	if (image == NULL || !(dimensionCheckIsTrue(height, width))) {
 		return NULL;
 	}
+	Message newImageMessage = (Message) malloc(sizeof(Message));
+	if (newImageMessage == NULL) return NULL;
+	imageCopy(image->data, newImageMessage->content.image, height, width);  //why is this not working?
+	
 	// Finished checking all Input, Now creating new Image
 	newImageMessage->senderID = senderID;
-	copiedImage->height = image->height;
-	copiedImage->width = width->width;
-	newImageMessage->content.image = copiedImage;
-	newImageMessage->type = MessageType[1];
+	newImageMessage->content.image.height = height;
+	newImageMessage->content.image.width = width;
+	newImageMessage->type = MESSAGE_IMAGE;
 	
 	return newImageMessage;
 }
