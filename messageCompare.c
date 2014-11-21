@@ -19,18 +19,25 @@ MessageResult messageCompare(const Message message1, const Message message2, boo
 		return MESSAGE_WRONG_TYPE;
 	}
 
+	int message1MatrixHeight;
+	int message2MatrixHeight;
+	int message1MatrixWidth;
+	int message2MatrixWidth;
+
 	int strCompareValue = 0;
 	if(message1->type == MESSAGE_TEXT) {
 		strCompareValue = strcmp(message1->content.text, message2->content.text);
 		if (strCompareValue == 0) {
 			*outIdentical = true;
+			printf("here!");
 			return MESSAGE_SUCCESS;
 		} else {
+			printf("bad here");
 			*outIdentical = false;
 			return MESSAGE_WRONG_TYPE; //what m i supposed to put here?
 			// something from the enum array ??
 		}
-	} 
+	}
 
 	else  {
 		message1MatrixHeight = message1->content.image.height;
@@ -52,12 +59,25 @@ MessageResult messageCompare(const Message message1, const Message message2, boo
 			}
 		}
 
-		*outIdentical = true; 
-
-		return MESSAGE_SUCCCESS;
+		*outIdentical = true;
 	}
+	return MESSAGE_SUCCESS;
 }
 
 int main() {
+	int ID = 302365697;
+	bool outIdentical;
+	Message message1;
+	message1 = malloc(sizeof(struct message_t));
+	Message message2;
+	message2 = malloc(sizeof(struct message_t));
+	message1->senderID = ID;
+	message2->senderID = ID;
+	message1->type  = MESSAGE_TEXT;
+	message2->type = MESSAGE_TEXT;
+	message1->content.text = "heythisOmerNela";
+	message2->content.text = "heythisOmerNela";
+	messageCompare(message1, message2, &outIdentical);
+
 	return 0;
 }
