@@ -52,39 +52,39 @@ Message messageImageCreate( int senderID, char** image, unsigned width, unsigned
 	return newImageMessage;
 }
 
-/*
-        int main () {
-	    int ID = 302365697;
-		Message message1;
-		int height = 2;
-		int width = 2;
-		char **array;
-				array = (char**)malloc(height*sizeof(char*));
-				if(array == NULL) {
-					return -1;
-				}
-				for(int i = 0; i < height; i ++) {
-					array[i] = (char*)malloc(width*sizeof(char));
-					if(array[i] == NULL) {
-						return -1;
-					}
-				}
-		array[0][0] = '1';
-		array[0][1] = '2';
-		array[1][0] = '3';
-		array[1][1] = '4';
 
-		message1 = messageImageCreate(ID, array, width, height);
-		printf("sender%d:\n", message1->senderID);
-		//printf("string:%s", message1->content.text);
-		for(int i = 0 ; i < height ; i++) {
-			for(int j = 0 ; j < width ; j++) {
-				printf("This is the array number %d\n", message1->content.image.data[i][j]);
-			}
-		}
-		return 0;
+  //       int main () {
+	 //    int ID = 302365697;
+		// Message message1;
+		// int height = 2;
+		// int width = 2;
+		// char **array;
+		// 		array = (char**)malloc(height*sizeof(char*));
+		// 		if(array == NULL) {
+		// 			return -1;
+		// 		}
+		// 		for(int i = 0; i < height; i ++) {
+		// 			array[i] = (char*)malloc(width*sizeof(char));
+		// 			if(array[i] == NULL) {
+		// 				return -1;
+		// 			}
+		// 		}
+		// array[0][0] = '1';
+		// array[0][1] = '2';
+		// array[1][0] = '3';
+		// array[1][1] = '4';
+
+		// message1 = messageImageCreate(ID, array, width, height);
+		// printf("sender%d:\n", message1->senderID);
+		// //printf("string:%s", message1->content.text);
+		// for(int i = 0 ; i < height ; i++) {
+		// 	for(int j = 0 ; j < width ; j++) {
+		// 		printf("This is the array number %d\n", message1->content.image.data[i][j]);
+		// 	}
+		// }
+		// return 0;
 }
-*/
+
 
 
 /*

@@ -4,69 +4,97 @@
 #include <string.h>
 #include <stdio.h>
 
+char *strRev(char *str)
+{
+      char *p1, *p2;
+
+      if (! str || ! *str)
+            return str;
+      for (p1 = str, p2 = str + strlen(str) - 1; p2 > p1; ++p1, --p2)
+      {
+            *p1 ^= *p2;
+            *p2 ^= *p1;
+            *p1 ^= *p2;
+      }
+      return str;
+}
+
+char* subString(char* string, int lengthOfString, int beginningPoint) {
+	if(string == NULL) {
+		return NULL;
+	}
+	char* stringToReturn = malloc(sizeof(char)*lengthOfString);
+	if(stringToReturn == NULL) {
+		return NULL;
+	}
+	for(int i  = 0 ; i < lengthOfString; i++) {
+		stringToReturn[i] = string[beginningPoint + i];
+	}
+	return stringToReturn;
+}
+
 bool isPalindrome(char *originalString) {
 	bool result;
-	char *copiedString = (char*)malloc(sizeof(char*strlen(originalString)));
+	char *copiedString = malloc(strlen(originalString)*sizeof(char));
 	if (copiedString == NULL) {
 		return false;
 	}
 	strcpy(copiedString, originalString);
-	strrev(copiedString);
+	strRev(copiedString);
 	 if( strcmp(originalString,copiedString) == 0 ) {
+		printf("stringCompare is true\n");
 	 	result = true;
+
 	 } else {
     	 result = false;
 	 }
 	 free(copiedString);
+	 printf("result is %d\n", result);
 	 return result;
 }
 
-bool isPalindromePreparation(char *originalString, int beginningPoint, int endPoint) {
-	int lengthOfString = endPoint - beginningPoint;
-	bool resultFlag;
-	if(!lengthOfString) { //this is for the case that the line is empty
-		return true;
-	}
-	char *stringToBeSent = (char*)malloc(sizeof(char)*lengthOfString);
-	if (stringToBeSent == NULL) {
-		return false;
-	} else {
-		strcpy(stringToBeSent, originalString);
-		resultFlag = isPalindrome(stringToBeSent);
-		free(stringToBeSent);
-		return resultFlag;
-	}
-}
-
-MessageResult messageIsPalindrome(const Message message, bool* outIsPalindrome) {
-	int lineLengthCounterEnd = 0;
-	int lineLengthCounterStart = 0;
-	bool palindromeFlag = true;
-
-	if (message == NULL) {  //bad argument
+Message messageIsPalindrome(const Message message, bool* outIsPalindrome) {
+	if(message == NULL) {
 		return MESSAGE_NULL_ARGUMENT;
 	}
-	if (message->type == MESSAGE_IMAGE) { //wrong type
+	if(message->type == MESSAGE_IMAGE) {
 		return MESSAGE_WRONG_TYPE;
 	}
-	while(message->content.text && palindromeFlag) {
-		while(message->content.text[lineLengthCounterEnd] == '\n') { //Want to grab each line
-			lineLengthCounterEnd++;
-		}
-		palindromeFlag = isPalindromePreparation(message->content.text, lineLengthCounterStart, lineLengthCounterEnd);
-		lineLengthCounterStart = lineLengthCounterEnd + 1;
+	int counter  = 0;
+	int numOfLines = 0;
+	numOfLines = messageNumberOfLines(message);
+	int indexArray = malloc(sizeof(int)*numOfLines);
+	if(indexArray == NULL) {
+		return NULL;
 	}
 
-	*outIsPalindrome = palindromeFlag;
+	int indexArrayCounter = 0;
+//!!!!!!!!!!!!!!!!! Getting All Indexes !!!!!!!!!!!!!!!!!!!!
+	while(message->content.text[counter]) {
+		if(message->content.text[counter] == '\n') {
+			indexArray[indexArrayCounter] = counter;
+			indexArrayCounter++;
+		}
+		counter++;
+	}
+//!!!!!!!!!!!!!!!! Printing all Indexes !!!!!!!!!!!!!!!!!!!!!!
+	for(int  i = 0 ; i < numOfLines ; i++) {
+		printf("%d\n", indexArray);
+	}
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-	return MESSAGE_SUCCESS; // what are we supposed to return in these cases???
-
+	free(indexArray);
+	return message;
 }
 
 int main() {
-
-
-
-
-	return 0;
+	Message message1;
+	message1 = malloc(sizeof(struct message_t));
+	if(message1 == NULL){
+		return NULL;
+	}
+	message1->type  = MESSAGE_TEXT;
+	message1->content.text = "abba";
+	//printf("")
+	free(message1);
 }

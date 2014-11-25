@@ -3,12 +3,22 @@
 
 #include "message.h"
 
+// typedef struct conversation_t* Conversation;
+// struct conversation_t {
+// 	// TODO: Add fields here
+// 	unsigned int maxNumOfMessages;
+// 	Message message;
+// 	Conversation next;
+// };
+
 /**
  * The message structure
  */
 typedef struct conversation_t* Conversation;
 struct conversation_t {
 	// TODO: Add fields here
+	unsigned int maxNumOfMessages;
+	Message* messages_ptr;
 };
 
 /**
