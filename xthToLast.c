@@ -1,6 +1,9 @@
 Node recursiveFunc (Node head, int n, int* nodeCounter) {
 		Node nodeToReturn;
 	    if(head->next == NULL) {
+	    	if(n == 0) {
+	    		return head;
+	    	} else {
 	       return NULL;
 	    }
 	    nodeToReturn = recursiveFunc(head->next, n, nodeCounter);
